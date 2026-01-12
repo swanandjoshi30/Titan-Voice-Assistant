@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Titan Assistant</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 15px;
+      width: 400px;
+      text-align: center;
+    }
+    .output {
+      height: 200px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 10px;
+      text-align: left;
+    }
+    .message {
+      margin: 5px 0;
+      padding: 5px;
+    }
+    .user { background: rgba(102,126,234,0.3); }
+    .bot { background: rgba(118,75,162,0.3); }
+    input {
+      width: 70%;
+      padding: 8px;
+      border-radius: 5px;
+      border: none;
+    }
+    button {
+      padding: 8px 12px;
+      margin: 3px;
+      border: none;
+      border-radius: 5px;
+      background: #ff6b6b;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .mic {
+      background: #1dd1a1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Titan Assistant</h2>
+    <div class="output" id="chat"></div>
+    <input type="text" id="commandInput" placeholder="Type or use mic...">
+    <button onclick="sendCommand()">Send</button>
+    <button class="mic" onclick="startListening()">🎤 Mic</button>
+  </div>
+
+  <script>
+    // 🔊 Speak text
+    function speak(text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 1;
+      utterance.pitch = 1;
+      utterance.volume = 1;
+      speechSynthesis.speak(utterance);
+    }
+
+    // ✉️ Send typed or voice commands to backend
+    async function sendCommand(commandText = null) {
+      const input = document.getElementById("commandInput");
+      const command = commandText || input.value.trim();
+      if (!command) return;
+
+      addMessage("You", command, "user");
+      input.value = "";
+
+      const response = await fetch("/process", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ command })
+      });
+
+      const data = await response.json();
+      addMessage("Titan", data.response, "bot");
+
+      // 🔊 Speak response
+      speak(data.response);
+    }
+
+    // 📝 Add messages to chat window
+    function addMessage(speaker, message, cls) {
+      const chat = document.getElementById("chat");
+      const div = document.createElement("div");
+      div.className = "message " + cls;
+      div.innerHTML = `<strong>${speaker}:</strong> ${message}`;
+      chat.appendChild(div);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    // 🎤 Listen with microphone
+    function startListening() {
+      if (!('webkitSpeechRecognition' in window)) {
+        alert("Sorry, your browser does not support Speech Recognition.");
+        return;
+      }
+
+      const recognition = new webkitSpeechRecognition();
+      recognition.lang = "en-US";
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      recognition.start();
+
+      recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        sendCommand(transcript);
+      };
+
+      recognition.onerror = function(event) {
+        console.error("Speech recognition error:", event.error);
+      };
+    }
+  </script>
+</body>
+</html>

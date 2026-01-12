@@ -1,0 +1,25 @@
+Titan Voice Assistant is a Python-based virtual assistant built using the Flask web framework that supports both text and voice-based interaction through a browser interface. The application processes user commands on the backend and responds with relevant information in real time.
+
+The assistant integrates multiple external APIs to dynamically fetch jokes, quotes, news, weather updates, and Wikipedia summaries, ensuring that responses remain fresh and automated rather than relying on static, hardcoded data. It also includes utility and conversational features such as greetings, date and time queries, random number generation, coin toss, dice roll, and safe web navigation.
+
+The frontend is implemented using HTML, CSS, and JavaScript, leveraging browser-based Speech Recognition for voice input and Speech Synthesis for spoken responses. Communication between the frontend and backend is handled via AJAX requests, allowing seamless, real-time interaction without page reloads.
+
+Titan is designed with simplicity, reliability, and extensibility in mind. The backend includes proper error handling, API timeouts, and fallback mechanisms to ensure stable behavior even when external services are unavailable. The project follows standard Flask application structure and dependency management practices, making it suitable for academic submission, GitHub portfolio display, and interview discussions.
+
+Key Highlights
+
+Flask-based backend for command processing
+
+Voice and text interaction via browser
+
+Automated content generation using external APIs
+
+Real-time weather and news retrieval
+
+Wikipedia search integration
+
+Clean, modular, and beginner-friendly codebase
+
+Easily extensible for future features such as NLP, authentication, or cloud deployment
+
+This project demonstrates practical knowledge of Python, web development, API integration, and client–server communication, making it a strong foundation for learning and showcasing full-stack development concepts.
