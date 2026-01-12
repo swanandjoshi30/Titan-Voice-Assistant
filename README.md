@@ -1,3 +1,8 @@
+![Python](https://img.shields.io/badge/Python-3.9+-blue)
+![Flask](https://img.shields.io/badge/Flask-2.3.2-black)
+![License](https://img.shields.io/badge/License-MIT-green)
+
+
 🤖 Titan Voice Assistant
 
 Titan Voice Assistant is a web-based virtual assistant built using Python (Flask) for the backend and HTML, CSS, and JavaScript for the frontend.
