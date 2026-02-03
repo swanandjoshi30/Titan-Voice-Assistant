@@ -6,20 +6,13 @@ The frontend is implemented using HTML, CSS, and JavaScript, leveraging browser-
 
 Titan is designed with simplicity, reliability, and extensibility in mind. The backend includes proper error handling, API timeouts, and fallback mechanisms to ensure stable behavior even when external services are unavailable. The project follows standard Flask application structure and dependency management practices, making it suitable for academic submission, GitHub portfolio display, and interview discussions.
 
-Key Highlights
-
+Key Highlights:
 Flask-based backend for command processing
-
 Voice and text interaction via browser
-
 Automated content generation using external APIs
-
 Real-time weather and news retrieval
-
 Wikipedia search integration
-
 Clean, modular, and beginner-friendly codebase
-
 Easily extensible for future features such as NLP, authentication, or cloud deployment
 
 This project demonstrates practical knowledge of Python, web development, API integration, and client–server communication, making it a strong foundation for learning and showcasing full-stack development concepts.
